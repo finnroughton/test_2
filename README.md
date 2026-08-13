@@ -1,4 +1,6 @@
-# test-project — RL drone control + layered command system
+# Agent Polly
+
+**An AI-assisted drone: you say what you want, it works out a flight path that is safe to stand next to.**
 
 Reinforcement learning for quadrotor control (`gym-pybullet-drones` + stable-baselines3 PPO),
 plus a layered system that turns a spoken command into a trajectory and flies it.
@@ -8,13 +10,13 @@ plus a layered system that turns a spoken command into a trajectory and flies it
 > behind the current state. Reading it first will save you from re-deriving several things
 > that took a long time to learn.
 
-**Repo:** https://github.com/finnroughton/test_2
+**Repo:** https://github.com/finnroughton/agent-polly
 
 ## Setup
 
 ```bash
-git clone https://github.com/finnroughton/test_2.git
-cd test_2
+git clone https://github.com/finnroughton/agent-polly.git
+cd agent-polly
 
 # PyBullet is built from source (not a wheel on all platforms)
 git clone https://github.com/bulletphysics/bullet3.git bullet3

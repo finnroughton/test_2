@@ -1,7 +1,7 @@
 [project]
-name = "test-project"
+name = "agent-polly"
 version = "0.1.0"
-description = "Add your description here"
+description = "Agent Polly - AI-assisted drone: natural-language commands to safe, obstacle-aware flight"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

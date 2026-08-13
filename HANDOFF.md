@@ -1,6 +1,6 @@
 # Handoff — read this first
 
-You are picking up an RL drone-control project mid-stream. This file is written for a fresh
+You are picking up **Agent Polly** mid-stream — an AI-assisted drone project. This file is written for a fresh
 Claude session with no memory of the work. Read it before running anything.
 
 **If you are a chat or Cowork session** (no repo access): read this file and the decisions log
