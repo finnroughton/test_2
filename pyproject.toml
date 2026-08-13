@@ -3,5 +3,16 @@ name = "test-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.9"
-dependencies = []
+requires-python = ">=3.10"
+dependencies = [
+    "pybullet",
+    "gym-pybullet-drones",
+]
+[tool.uv.sources]
+pybullet = { path = "./bullet3", editable = true }
+gym-pybullet-drones = { workspace = true }
+
+[tool.uv.workspace]
+members = [
+    "gym-pybullet-drones",
+]

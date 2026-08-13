@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<robot name="hs175d">
+  <properties arm="0.1100" kf="1.687320e-09" km="1.670447e-12" thrust2weight="2.0" max_speed_kmh="60.0" gnd_eff_coeff="11.36859" prop_radius="4.950000e-02" drag_coeff_xy="7.046542e-06" drag_coeff_z="7.915988e-06" dw_coeff_1="2267.18" dw_coeff_2=".16" dw_coeff_3="-.11" />
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.215"/>
+      <inertia ixx="6.503750e-04" ixy="0.0" ixz="0.0" iyy="6.503750e-04" iyz="0.0" izz="1.300750e-03"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder radius="0.0660" length="0.0500"/></geometry>
+      <material name="grey"><color rgba=".5 .5 .5 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder radius="0.0660" length="0.0500"/></geometry>
+    </collision>
+  </link>
+  <link name="prop0_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0778 -0.0778 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="prop0_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="prop0_link"/>
+  </joint>
+  <link name="prop1_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0778 0.0778 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="prop1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="prop1_link"/>
+  </joint>
+  <link name="prop2_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0778 0.0778 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="prop2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="prop2_link"/>
+  </joint>
+  <link name="prop3_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0778 -0.0778 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="prop3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="prop3_link"/>
+  </joint>
+  <link name="center_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="center_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="center_link"/>
+  </joint>
+
+</robot>
