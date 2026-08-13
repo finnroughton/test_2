@@ -181,6 +181,49 @@ be recalled.
 their reasons* here, not just code changes; a fresh session can read the code but cannot
 reconstruct why something was chosen.
 
+## Project context beyond the engineering
+
+This is a personal project, but it also serves as portfolio material — documentation of the
+build is intended for college applications and similar. Two consequences for anyone working
+on it:
+
+- **The reasoning matters as much as the result.** Decisions, failed approaches and their
+  causes are part of the deliverable, not overhead. Keep the decisions log below current, and
+  do not quietly delete evidence of things that did not work — that record is the most
+  distinctive material this project produces.
+- **The owner must be able to explain every decision independently.** Assistance that produces
+  working code but leaves the reasoning opaque is a net negative here, whatever it does for
+  velocity. Prefer explaining a tradeoff over silently resolving it.
+
+### Documentation plan
+
+A YouTube build series is planned alongside the repo. Practical constraints agreed:
+
+- **Capture continuously, publish in batches.** Screen recordings, phone footage and written
+  notes cost little in the moment and cannot be recovered later. Editing is the expensive part
+  and should happen in bursts, never on a fixed cadence.
+- **Episode cadence must never drive an engineering decision.** The risk is that the series
+  consumes the build — most likely during Phase 4, which is long, unglamorous and has nothing
+  visual to show.
+- **The repo is the primary documentation**; video is the legible summary for non-specialists.
+- **Failures are the valuable content.** The metric that hid a 34 % crash rate, the three
+  crashes that were bugs in the test harness, the day spent training a layer that should have
+  been bought — that material is distinctive precisely because most build logs omit it.
+
+### Regulatory (US / FAA) — verify current details at faa.gov/uas
+
+- **Registration:** any drone **≥ 250 g at takeoff including battery and payload** must be
+  registered, recreational or not. The planned 2–3 kg carrier is well over. The owner's
+  existing HS175D (215 g) is not.
+- **Monetized content is commercial use.** Ads or sponsorships on a channel carrying drone
+  footage means the flight is no longer recreational and requires a **Part 107 Remote Pilot
+  Certificate** (14 CFR Part 107).
+- **Part 107:** written knowledge test only, no flight test. 16+, ~$175, 60 questions, 70 % to
+  pass; recurrent training every 24 months. Can be earned before the aircraft exists, and is
+  itself a portfolio item.
+- **Do not publish footage of unsafe practice** — flying over people, over roads, or beyond
+  visual line of sight — regardless of whether it is legal in the moment.
+
 ## Decisions log
 
 Newest last. Record the call, the reason, and what would reverse it.
@@ -193,6 +236,8 @@ Newest last. Record the call, the reason, and what would reverse it.
 | 2026-08-13 | Priority is never-crash over tracking accuracy | Owner's stated requirement: 30 cm off in open space is fine, 3 cm into a wall is not | Changes only if the mission changes |
 | 2026-08-13 | Stop investing in the RL control layer; buy it (PX4/ArduPilot) | Position control is solved and more reliable off the shelf; obstacle-avoiding follow-me ships as a product. The simulated 27 g airframe cannot carry the sensor payload anyway | Discovering PX4 cannot meet a specific requirement the RL policy can |
 | 2026-08-13 | Next step is Phase 0: PX4 SITL + Gazebo, re-point `commands.py` at MAVSDK | SITL runs the real firmware, so nothing learned there needs re-learning on hardware | A decision to buy a Skydio-class platform and build on its SDK instead |
+| 2026-08-13 | Document the build as a YouTube series alongside the repo | Serves as project documentation and portfolio material; failures are the distinctive content | If production overhead starts displacing engineering time, cut cadence not scope |
+| 2026-08-13 | Pursue Part 107 before the aircraft exists | Removes the monetization/commercial question entirely, and is a federal certification earnable during Phase 0 | Age requirement is 16+; nothing else blocks it |
 
 ## Useful commands
 
