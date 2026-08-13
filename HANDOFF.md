@@ -3,6 +3,10 @@
 You are picking up an RL drone-control project mid-stream. This file is written for a fresh
 Claude session with no memory of the work. Read it before running anything.
 
+**If you are a chat or Cowork session** (no repo access): read this file and the decisions log
+at the bottom, and do not answer questions about measured performance from memory — those
+numbers come from `evaluate.py` and are easy to guess wrong. Ask for a real run instead.
+
 ---
 
 ## What this is
@@ -143,6 +147,52 @@ and measures clearance to it.
 | Obstacle avoidance in trajectory following | `ObstacleAvoidanceAviary` exists standalone; `commands.py` flies an obstacle-free env |
 | Clearance to walls/obstacles | not measured at all — only clearance to the operator |
 | Crash metric | conflates "banked past 23°" with "hit the ground"; should be split |
+
+## Working across surfaces (Claude Code / chat / Cowork)
+
+The work is deliberately split across surfaces. Split by **what tools a task needs**, not by
+subject matter:
+
+| task | surface | why |
+|---|---|---|
+| run training, edit code, read logs | Claude Code | needs the repo and a shell |
+| source parts, track cost, compare sensors | chat / Cowork | needs the web, not the repo |
+| debug a physical build, read a diagram | chat / Cowork | needs images |
+| architecture decisions | wherever the binding constraint is | cross-cutting; see below |
+
+**The failure mode to guard against.** The most consequential findings in this project have all
+been cross-domain — a physical fact arriving mid-simulation and invalidating the technical
+direction. Three real examples:
+
+- "I'm 1.8 m tall" (a build fact) revealed the demo trajectories were flying through the
+  operator's head at 1.5 m.
+- "My drone is an HS175D" (a procurement fact) revealed the simulated airframe was 27 g, the
+  owned one 215 g, and the job needs 2–5 kg — which is what exposed that the control layer
+  being trained is the layer to *buy*.
+- "Nobody sprints while crab-walking" (domain reasoning) reframed an entire test matrix that
+  was being optimised against the wrong requirement.
+
+None of these would surface in a session scoped strictly to one domain. So: when a decision
+depends on a constraint from the *other* side, pull that constraint in rather than deciding
+without it. And when a chat session needs a performance number, get it measured — do not let it
+be recalled.
+
+**Keep this file current.** It is the only shared state between surfaces. Write decisions *and
+their reasons* here, not just code changes; a fresh session can read the code but cannot
+reconstruct why something was chosen.
+
+## Decisions log
+
+Newest last. Record the call, the reason, and what would reverse it.
+
+| date | decision | reason | what would reverse it |
+|---|---|---|---|
+| 2026-08-12 | Judge models by success/crash rate, not mean reward | Mean reward hid a policy flawless below 3.4 m and crashing 100 % above it | Nothing — this was strictly an improvement |
+| 2026-08-13 | Discarded both cruise speed-ramp attempts (0.4–1.2, 0.2–0.8) | Both produced strictly worse models than the 0.2–0.6 original, which generalises to 1.0 m/s better than models trained there | Evidence that a slower ramp or different LR schedule behaves differently |
+| 2026-08-13 | Follow-cam geometry: 2.5 m altitude, behind travel, never overhead | Operator is 1.8 m; earlier defaults flew through their head. Overhead is the worst place to fail from | A tested runtime monitor enforcing clearance independently |
+| 2026-08-13 | Priority is never-crash over tracking accuracy | Owner's stated requirement: 30 cm off in open space is fine, 3 cm into a wall is not | Changes only if the mission changes |
+| 2026-08-13 | Stop investing in the RL control layer; buy it (PX4/ArduPilot) | Position control is solved and more reliable off the shelf; obstacle-avoiding follow-me ships as a product. The simulated 27 g airframe cannot carry the sensor payload anyway | Discovering PX4 cannot meet a specific requirement the RL policy can |
+| 2026-08-13 | Next step is Phase 0: PX4 SITL + Gazebo, re-point `commands.py` at MAVSDK | SITL runs the real firmware, so nothing learned there needs re-learning on hardware | A decision to buy a Skydio-class platform and build on its SDK instead |
 
 ## Useful commands
 
